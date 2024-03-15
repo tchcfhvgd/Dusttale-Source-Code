@@ -1,6 +1,11 @@
 package;
 
+#if android
+import android.content.Context;
+import android.os.Build;
+#end
 import openfl.display.BlendMode;
+import haxe.io.Path;
 import openfl.text.TextFormat;
 import openfl.display.Application;
 import flixel.util.FlxColor;
@@ -61,6 +66,15 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
+		#if android
+		if (VERSION.SDK_INT > 30)
+			Sys.setCwd(Path.addTrailingSlash(Context.getObbDir()));
+		else
+			Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
+		#elseif ios
+		Sys.setCwd(System.documentsDirectory);
+		#end
+		
 		game = new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen);
 		
 		addChild(game);
