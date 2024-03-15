@@ -1513,9 +1513,9 @@ class PlayState extends MusicBeatState
 
 	function playCutscene(videoPlaying:String,time:Float,dialogueBox:DialogueBox):Void
 	{
-		var video:MP4Handler = new MP4Handler();
-   		video.playMP4(Paths.video(videoPlaying), null); 
-		new FlxTimer().start(time, function(tmr:FlxTimer)
+		var video:VideoHandler = new VideoHandler();
+   		video.playVideo(Paths.video(videoPlaying)); 
+		video.finishCallback = function()
 		{
 			if (dialogueBox != null)
 			{
@@ -1524,17 +1524,17 @@ class PlayState extends MusicBeatState
 			}
 			else
 				startCountdown();
-		});
+		}
 	}
 
 	function playCutscene2(videoPlaying:String,time:Float):Void
 	{
-		var video:MP4Handler = new MP4Handler();
-		video.playMP4(Paths.video(videoPlaying), null); 
-		new FlxTimer().start(time, function(tmr:FlxTimer)
+		var video:VideoHandler = new VideoHandler();
+		video.playVideo(Paths.video(videoPlaying)); 
+	        video.finishCallback = function()
 		{
 			LoadingState.loadAndSwitchState(new PlayState());
-		});
+		}
 	}
 
 	function dialogueShit(?dialogueBox:DialogueBox):Void
@@ -3171,15 +3171,6 @@ class PlayState extends MusicBeatState
 
 		if (isStoryMode)
 			campaignMisses = misses;
-
-		if (!loadRep)
-			rep.SaveReplay(saveNotes, saveJudge, replayAna);
-		else
-		{
-			PlayStateChangeables.botPlay = false;
-			PlayStateChangeables.scrollSpeed = 1;
-			PlayStateChangeables.useDownscroll = false;
-		}
 
 		if (FlxG.save.data.fpsCap > 290)
 			(cast (Lib.current.getChildAt(0), Main)).setFPSCap(290);
