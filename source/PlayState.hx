@@ -1825,9 +1825,6 @@ class PlayState extends MusicBeatState
 			default: allowedToHeadbang = false;
 		}
 
-		if (useVideo)
-			GlobalVideo.get().resume();
-		
 		#if windows
 		// Updating Discord Rich Presence (with Time Left)
 		DiscordClient.changePresence(detailsText
