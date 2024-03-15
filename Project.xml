@@ -143,7 +143,7 @@
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 
 	<!-- _________________________________ Custom _______________________________ -->
-        <haxedef name="HXC_DEBUG_TRACE
+        haxedef name="HXC_DEBUG_TRACE" if="debug" />
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 	
 	<icon path="art/icon8.png" size='8'/>
