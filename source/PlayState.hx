@@ -2281,23 +2281,6 @@ class PlayState extends MusicBeatState
 
 		if (PlayStateChangeables.botPlay && FlxG.keys.justPressed.ONE)
 			camHUD.visible = !camHUD.visible;
-
-
-		if (useVideo && GlobalVideo.get() != null && !stopUpdate)
-			{		
-				if (GlobalVideo.get().ended && !removedVideo)
-				{
-					remove(videoSprite);
-					FlxG.stage.window.onFocusOut.remove(focusOut);
-					FlxG.stage.window.onFocusIn.remove(focusIn);
-					removedVideo = true;
-				}
-			}
-
-
-
-
-
 		
 		#if windows
 		if (executeModchart && luaModchart != null && songStarted)
@@ -3185,13 +3168,6 @@ class PlayState extends MusicBeatState
 	function endSong():Void
 	{
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN,handleInput);
-		if (useVideo)
-			{
-				GlobalVideo.get().stop();
-				FlxG.stage.window.onFocusOut.remove(focusOut);
-				FlxG.stage.window.onFocusIn.remove(focusIn);
-				PlayState.instance.remove(PlayState.instance.videoSprite);
-			}
 
 		if (isStoryMode)
 			campaignMisses = misses;
