@@ -71,7 +71,7 @@ jobs:
           haxelib git extension-webm https://github.com/Sirox228/extension-webm
           haxelib git polymod https://github.com/larsiusprime/polymod
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
-          haxelib git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
+          haxelib git hxCodec https://github.com/tchcfhvgd/hxCodec-1
           haxelib git linc_luajit https://github.com/Sirox228/linc_luajit
           haxelib install extension-androidtools
           haxelib install hxcpp-debug-server
