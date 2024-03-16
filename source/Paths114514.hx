@@ -29,7 +29,7 @@ import android.os.Build;
 
 using StringTools;
 
-class Paths
+class Paths114514
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
 	inline public static var VIDEO_EXT = "mp4";
