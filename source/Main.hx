@@ -27,6 +27,7 @@ class Main extends Sprite
 	var framerate:Int = 60; // How many frames per second the game should run at.
 	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
+	public static var skipNextDump:Bool = false;
 
 	public static var watermarks = true; // Whether to put Kade Engine liteartly anywhere
 
@@ -78,6 +79,17 @@ class Main extends Sprite
 		game = new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen);
 		
 		addChild(game);
+
+		FlxG.signals.preStateSwitch.add(function () {
+			if (!Main.skipNextDump) {
+				Paths114514.clearStoredMemory(true);
+				FlxG.bitmap.dumpCache();
+			}
+		});
+		FlxG.signals.postStateSwitch.add(function () {
+			Paths114514.clearUnusedMemory();
+			Main.skipNextDump = false;
+		});
 		
 		fpsCounter = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsCounter);
