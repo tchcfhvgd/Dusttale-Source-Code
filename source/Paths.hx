@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.utils.AssetType;
+import flixel.graphics.FlxGraphic;
 import openfl.utils.Assets as OpenFlAssets;
 
 class Paths
@@ -121,9 +122,11 @@ class Paths
 		return 'songs:assets/songs/${songLowercase}/Inst.$SOUND_EXT';
 	}
 
-	inline static public function image(key:String, ?library:String)
+	inline static public function image(key:String, ?library:String):FlxGraphic
 	{
-		return getPath('images/$key.png', IMAGE, library);
+		// streamlined the assets process more
+		var returnAsset:FlxGraphic = returnGraphic(key, library);
+		return returnAsset;
 	}
 
 	inline static public function font(key:String)
@@ -131,13 +134,31 @@ class Paths
 		return 'assets/fonts/$key';
 	}
 
-	inline static public function getSparrowAtlas(key:String, ?library:String)
+	inline static public function getSparrowAtlas(key:String, ?library:String):FlxAtlasFrames
 	{
 		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
 	}
 
+
 	inline static public function getPackerAtlas(key:String, ?library:String)
 	{
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
+	}
+
+        public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
+	public static function returnGraphic(key:String, ?library:String) {
+		var path = getPath('images/$key.png', IMAGE, library);
+		//trace(path);
+		if (OpenFlAssets.exists(path, IMAGE)) {
+			if(!currentTrackedAssets.exists(path)) {
+				var newGraphic:FlxGraphic = FlxG.bitmap.add(path, false, path);
+				newGraphic.persist = true;
+				currentTrackedAssets.set(path, newGraphic);
+			}
+			localTrackedAssets.push(path);
+			return currentTrackedAssets.get(path);
+		}
+		trace('oh no its returning null NOOOO');
+		return null;
 	}
 }
