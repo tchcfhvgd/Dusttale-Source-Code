@@ -80,14 +80,8 @@ class Main extends Sprite
 		
 		addChild(game);
 
-		FlxG.signals.preStateSwitch.add(function () {
-			if (!Main.skipNextDump) {
-				Paths114514.clearStoredMemory();
-			}
-		});
 		FlxG.signals.postStateSwitch.add(function () {
 			Paths114514.clearUnusedMemory();
-			Main.skipNextDump = false;
 		});
 		
 		fpsCounter = new FPS(10, 3, 0xFFFFFF);
