@@ -54,6 +54,9 @@ class Main extends Sprite
 		#elseif ios
 		Sys.setCwd(System.documentsDirectory);
 		#end
+
+		FlxG.signals.preStateCreate.add(onPreStateCreate);
+		FlxG.signals.postStateSwitch.add(System.gc);
 		
 		if (stage != null)
 		{
@@ -80,9 +83,6 @@ class Main extends Sprite
 		game = new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen);
 		
 		addChild(game);
-
-		FlxG.signals.preStateCreate.add(onPreStateCreate);
-		FlxG.signals.postStateSwitch.add(System.gc);
 		
 		fpsCounter = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsCounter);
