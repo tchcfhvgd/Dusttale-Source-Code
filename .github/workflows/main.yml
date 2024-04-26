@@ -67,6 +67,7 @@ jobs:
           haxelib install hxjsonast
           haxelib install newgrounds 1.3.0
           haxelib install hscript
+          haxelib install actuate
           haxelib git extension-webm https://github.com/Sirox228/extension-webm
           haxelib git polymod https://github.com/larsiusprime/polymod
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
