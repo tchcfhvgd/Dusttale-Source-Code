@@ -14,6 +14,7 @@ import flixel.FlxGame;
 import flixel.FlxState;
 import openfl.system.System;
 import openfl.Assets;
+import openfl.utils.AssetCache;
 import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
@@ -55,9 +56,6 @@ class Main extends Sprite
 		Sys.setCwd(System.documentsDirectory);
 		#end
 
-		FlxG.signals.preStateCreate.add(onPreStateCreate);
-		FlxG.signals.postStateSwitch.add(System.gc);
-		
 		if (stage != null)
 		{
 			init();
@@ -83,6 +81,9 @@ class Main extends Sprite
 		game = new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen);
 		
 		addChild(game);
+		
+		FlxG.signals.preStateCreate.add(onPreStateCreate);
+		FlxG.signals.postStateSwitch.add(System.gc);
 		
 		fpsCounter = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsCounter);
