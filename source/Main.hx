@@ -82,10 +82,19 @@ class Main extends Sprite
 		
 		addChild(game);
 		
-		FlxG.signals.preStateCreate.add(onPreStateCreate);
-		FlxG.signals.postStateSwitch.add(System.gc);
-		
 		fpsCounter = new FPS(10, 3, 0xFFFFFF);
+		
+		FlxG.signals.preStateSwitch.add(function () {
+			if (!Main.skipNextDump) {
+				Paths114514.clearStoredMemory(true);
+				FlxG.bitmap.dumpCache();
+			}
+		});
+		FlxG.signals.postStateSwitch.add(function () {
+			Paths114514.clearUnusedMemory();
+			Main.skipNextDump = false;
+		});
+		
 		addChild(fpsCounter);
 		toggleFPS(FlxG.save.data.fps);
 	}
