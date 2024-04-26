@@ -25,18 +25,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
 
-      - name: Setup Android NDK
-        uses: nttld/setup-ndk@main
-        id: setup-ndk
-        with:
-          ndk-version: r15c
-
       - name: Setup Java JDK
         uses: actions/setup-java@main
         with:
-          distribution: 'zulu'
-          java-version: 11
-
+          distribution: 'temurin'
+          java-version: '17'
+          
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
         with:
@@ -86,8 +80,6 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP truep
-        env:
-          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile
         run: haxelib run lime build android -D NO_PRECOMPILED_HEADERS --app-version="4.0.0-${{ github.run_id}}"
